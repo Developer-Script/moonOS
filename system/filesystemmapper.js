@@ -27,11 +27,11 @@ const FSM = class
       path 
     }
 
+    obj.push (temp)
+
     if (this.#fs.lstatSync (temp.path).isDirectory ())
     {
       temp.type = "dir"
-
-      obj.push (temp)
 
       if (this.#fs.readdirSync (temp.path))
       {
@@ -42,8 +42,6 @@ const FSM = class
         for (let x in contentNames)
         {
           contentPaths[x] = (`${temp.path}/${contentNames[x]}`)
-
-          //temp.content.push (contentNames[x])
           
           this.#mapping (temp.content, contentPaths[x])
         }
@@ -56,8 +54,6 @@ const FSM = class
     else if (this.#fs.lstatSync (path).isFile ())
     {
       temp.type = "file"
-
-      obj.push (temp)
     }
     else
     {
